@@ -1,25 +1,25 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PreventDoubleSubmitDirective } from './double-submit.directive';
-
-export * from './double-submit.directive';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PhoneNumberComponent } from "./phone-number.component";
+import { OnlyNumberDirective } from "./only-number.directive";
+import { CountryPipe } from "./country.pipe";
+import { CountryService } from "./country.service";
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
-    PreventDoubleSubmitDirective
+    PhoneNumberComponent,
+    OnlyNumberDirective,
+    CountryPipe
   ],
   exports: [
-    PreventDoubleSubmitDirective
-  ]
+    PhoneNumberComponent
+  ],
+  providers: [CountryService]
 })
-export class PreventDoubleSubmitModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: PreventDoubleSubmitModule,
-      providers: []
-    };
-  }
-}
+export class InternationalPhoneNumberModule { }

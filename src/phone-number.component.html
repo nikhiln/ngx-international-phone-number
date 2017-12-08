@@ -1,0 +1,28 @@
+<div class="input-group">
+  <span class="input-group-addon flagInput">
+         <div class="dropdown">
+            <button type="button" class="dropbtn btn" (click)="displayDropDown()">
+              <span [class]="'flag flag-' + selectedCountry.countryCode" *ngIf="selectedCountry"></span>
+              <span class="defaultCountry" *ngIf="!selectedCountry"></span>
+              <span class="arrow-down"></span>
+            </button>
+            <div class="dropdown-content" *ngIf="showDropdown" clickOutside>
+              <div class="list-group scrollable-menu">
+                <a href="#" class="list-group-item" *ngFor="let country of countries | country: countryFilter" (click)="updateSelectedCountry($event, country.countryCode)">
+                            <span [class]="'flag flag-' + country.countryCode"></span>
+                            <span class="country-name">{{ country.name }}  <span
+                              class="dial-code">+ {{ country.dialCode}}</span></span>
+                          </a>
+              </div>
+            </div>
+          </div>
+  </span>
+
+  <! -- if required -->
+  <input onlyNumber="true" class="form-control" [attr.maxlength]="maxlength" [(ngModel)]="phoneNumber" (ngModelChange)="updatePhoneNumber($event)" 
+  [placeholder]="placeholder" *ngIf="required" required>
+  
+  <! -- if not required -->
+  <input onlyNumber="true" class="form-control" [attr.maxlength]="maxlength" [(ngModel)]="phoneNumber" (ngModelChange)="updatePhoneNumber($event)" 
+  [placeholder]="placeholder" *ngIf="!required">
+</div>
