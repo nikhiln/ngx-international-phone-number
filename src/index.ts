@@ -1,25 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PhoneNumberComponent } from "./phone-number.component";
-import { OnlyNumberDirective } from "./only-number.directive";
-import { CountryPipe } from "./country.pipe";
-import { CountryService } from "./country.service";
-
-@NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule
-  ],
-  declarations: [
-    PhoneNumberComponent,
-    OnlyNumberDirective,
-    CountryPipe
-  ],
-  exports: [
-    PhoneNumberComponent
-  ],
-  providers: [CountryService]
-})
-export class InternationalPhoneNumberModule { }
+export * from './phone-number.module';
+export * from './country.model';
+export * from './country.service';
+export * from './country.pipe';
+export * from './phone-number.component';
+export * from './only-number.directive';

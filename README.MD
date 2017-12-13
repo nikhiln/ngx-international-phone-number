@@ -58,6 +58,11 @@ Once it is imported, you can use `international-phone-number`:
        required: Indicates whether it's required or not
        allowDropdown: Indicates whether to allow selecting country from dropdown
 
+
+## Troubleshooting:
+If you are getting error "Can't resolve 'google-libphonenumber'" while building with aot, try to install google-libphonenumber. Run npm install google-libphonenumber@3.0.9 --save
+
+
 ## Authors
     * Original Author: kondi0
     * Author: nikhiln 
