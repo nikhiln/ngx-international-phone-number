@@ -24,6 +24,11 @@ export class CountryService {
    */
   private loadCountries(locale: string = 'en'): Country[] {
     let countries = [
+	  {
+		name: '',
+		dialCode: '61',
+		countryCode: 'au'
+	  },
       {
         name: '',
         dialCode: '994',
