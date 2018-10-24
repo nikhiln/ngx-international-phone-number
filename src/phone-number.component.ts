@@ -41,6 +41,8 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor, Valid
     @Input() defaultCountry: string;
     @Input() required: boolean;
     @Input() allowDropdown: boolean = true;
+    
+    @Input() type: string = 'text';
 
     // ELEMENT REF
     phoneComponent: ElementRef;
