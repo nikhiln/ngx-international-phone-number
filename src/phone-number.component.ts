@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, HostListener, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, forwardRef, HostListener, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { ControlValueAccessor, FormControl, Validator, ValidationErrors, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import * as glibphone from 'google-libphonenumber';
 import { CountryCode, Country } from './country.model';
@@ -43,6 +43,8 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor, Valid
     @Input() allowDropdown: boolean = true;
     
     @Input() type: string = 'text';
+
+    @Output('onCountryCodeChanged') onCountryCodeChanged: EventEmitter<any> = new EventEmitter();
 
     // ELEMENT REF
     phoneComponent: ElementRef;
@@ -97,7 +99,7 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor, Valid
     updateSelectedCountry(event: Event, countryCode: string) {
         event.preventDefault();
         this.updatePhoneInput(countryCode);
-
+        this.onCountryCodeChanged.emit(countryCode);
         this.updateValue();
     }
 
