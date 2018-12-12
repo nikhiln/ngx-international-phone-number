@@ -45,9 +45,9 @@ Once it is imported, you can use `international-phone-number`:
 ```xml
 <!-- app.component.html -->
 <form name="sample-form" (ngSubmit)="submit()" #f="ngForm">
- <international-phone-number [(ngModel)]="model.phone_number" placeholder="Enter phone number" [maxlength]="20" [defaultCountry]="'in'" [required]="true" #phone_number="ngModel" name="phone_number"></international-phone-number>
+ <international-phone-number [(ngModel)]="model.phone_number" placeholder="Enter phone number" [maxlength]="20" [defaultCountry]="'in'" [required]="true" #phoneNumber="ngModel" name="phone_number" [allowedCountries]="['in', 'ca', 'us']"></international-phone-number>
 
-  <div *ngIf="f.submitted && !phone_number.valid" class="help-block">Phone number is required and should be valid</div>
+  <div *ngIf="f.submitted && !phoneNumber.valid" class="help-block">Phone number is required and should be valid</div>
   <button type="submit">Submit</button>
 </form>
 ```
@@ -57,6 +57,7 @@ Once it is imported, you can use `international-phone-number`:
        placeholder: A placeholder text which would be displayed in input widget
        required: Indicates whether it's required or not
        allowDropdown: Indicates whether to allow selecting country from dropdown
+       allowedCountries: A list of countries (iso codes) that would get display in country dropdown. E.g. [allowedCountries]="['in', 'ca', 'us']" would only show Canada, India and US. If not provided, all the countries would get displayed.
 
 
 ## Troubleshooting:

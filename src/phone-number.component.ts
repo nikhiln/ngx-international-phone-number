@@ -1,7 +1,24 @@
-import { Component, ElementRef, forwardRef, HostListener, Input, OnInit, Output, EventEmitter } from '@angular/core';
-import { ControlValueAccessor, FormControl, Validator, ValidationErrors, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {
+    Component,
+    ElementRef,
+    forwardRef,
+    HostListener,
+    Input,
+    OnInit,
+    Output,
+    EventEmitter,
+    ViewChild
+} from '@angular/core';
+import {
+    ControlValueAccessor,
+    FormControl,
+    Validator,
+    ValidationErrors,
+    NG_VALIDATORS,
+    NG_VALUE_ACCESSOR
+} from '@angular/forms';
 import * as glibphone from 'google-libphonenumber';
-import { CountryCode, Country } from './country.model';
+import { Country } from './country.model';
 import { CountryService } from './country.service';
 
 const PLUS = '+';
@@ -12,7 +29,6 @@ const COUNTER_CONTROL_ACCESSOR = {
     multi: true
 };
 
-
 const VALIDATOR = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(() => PhoneNumberComponent),
@@ -20,31 +36,28 @@ const VALIDATOR = {
 };
 
 @Component({
-    moduleId: module.id,
     selector: 'international-phone-number',
     templateUrl: './phone-number.component.html',
-    styleUrls: [
-        './phone-number.component.scss',
-        './assets/css/flags.min.css'
-    ],
+    styleUrls: ['./phone-number.component.scss', './assets/css/flags.min.css'],
     host: {
-        '(document:click)': 'hideDropdown($event)',
+        '(document:click)': 'hideDropdown($event)'
     },
     providers: [COUNTER_CONTROL_ACCESSOR, VALIDATOR]
 })
-export class PhoneNumberComponent implements OnInit, ControlValueAccessor, Validator {
-
-    //input
-    @Input() placeholder: string = 'Enter phone number'; //default
-    @Input() maxlength: number = 15; //default
+export class PhoneNumberComponent
+    implements OnInit, ControlValueAccessor, Validator {
+    // input
+    @Input() placeholder = 'Enter phone number'; // default
+    @Input() maxlength = 15; // default
 
     @Input() defaultCountry: string;
     @Input() required: boolean;
-    @Input() allowDropdown: boolean = true;
-    
-    @Input() type: string = 'text';
+    @Input() allowDropdown = true;
+    @Input() type = 'text';
 
-    @Output('onCountryCodeChanged') onCountryCodeChanged: EventEmitter<any> = new EventEmitter();
+    @Input() allowedCountries: [];
+
+    @Output() onCountryCodeChanged: EventEmitter<any> = new EventEmitter();
 
     // ELEMENT REF
     phoneComponent: ElementRef;
@@ -57,19 +70,46 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor, Valid
     selectedCountry: Country;
     countryFilter: string;
     showDropdown = false;
-    phoneNumber: string = '';
+    phoneNumber = '';
 
     value = '';
 
-    constructor(private countryService: CountryService, phoneComponent: ElementRef) {
+    @ViewChild('phoneNumberInput') phoneNumberInput: ElementRef;
+
+    /**
+     * Util function to check if given text starts with plus sign
+     * @param text
+     */
+    private static startsWithPlus(text: string): boolean {
+        return text.startsWith(PLUS);
+    }
+
+    /**
+     * Reduced the prefixes
+     * @param foundPrefixes
+     */
+    private static reducePrefixes(foundPrefixes: Country[]) {
+        const reducedPrefixes = foundPrefixes.reduce((first: Country, second: Country) =>
+            first.dialCode.length > second.dialCode.length ? first : second
+        );
+        return reducedPrefixes;
+    }
+
+    constructor(
+        private countryService: CountryService,
+        phoneComponent: ElementRef
+    ) {
         this.phoneComponent = phoneComponent;
     }
 
     ngOnInit(): void {
-        this.countries = this.countryService.getCountries();
+        if (this.allowedCountries && this.allowedCountries.length) {
+            this.countries = this.countryService.getCountriesByISO(this.allowedCountries);
+        } else {
+            this.countries = this.countryService.getCountries();
+        }
         this.orderCountriesByName();
     }
-
 
     /**
      * Opens the country selection dropdown
@@ -83,7 +123,7 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor, Valid
 
     /**
      * Hides the country selection dropdown
-     * @param event 
+     * @param event
      */
     hideDropdown(event: Event) {
         if (!this.phoneComponent.nativeElement.contains(event.target)) {
@@ -93,20 +133,21 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor, Valid
 
     /**
      * Sets the selected country code to given country
-     * @param event 
-     * @param countryCode 
+     * @param event
+     * @param countryCode
      */
     updateSelectedCountry(event: Event, countryCode: string) {
         event.preventDefault();
         this.updatePhoneInput(countryCode);
         this.onCountryCodeChanged.emit(countryCode);
         this.updateValue();
+        // focus on phone number input field
+        setTimeout(() => this.phoneNumberInput.nativeElement.focus());
     }
-
 
     /**
      * Updates the phone number
-     * @param event 
+     * @param event
      */
     updatePhoneNumber(event: Event) {
         if (PhoneNumberComponent.startsWithPlus(this.phoneNumber)) {
@@ -120,7 +161,7 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor, Valid
 
     /**
      * shows the dropdown with keyboard event
-     * @param event 
+     * @param event
      */
     @HostListener('document:keypress', ['$event'])
     handleKeyboardEvent(event: KeyboardEvent) {
@@ -130,43 +171,47 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor, Valid
     }
 
     /**
-     * 
-     * @param prefix 
+     * @param prefix
      */
     private findPrefix(prefix: string) {
-        let foundPrefixes: Country[] = this.countries.filter((country: Country) => prefix.startsWith(country.dialCode));
-        if (foundPrefixes && foundPrefixes.length)
-            this.selectedCountry = PhoneNumberComponent.reducePrefixes(foundPrefixes)
-        else
+        let foundPrefixes: Country[] = this.countries.filter((country: Country) =>
+            prefix.startsWith(country.dialCode)
+        );
+        if (foundPrefixes && foundPrefixes.length) {
+            this.selectedCountry = PhoneNumberComponent.reducePrefixes(foundPrefixes);
+        } else {
             this.selectedCountry = null;
+        }
     }
 
     /**
      * Sort countries by name
      */
     private orderCountriesByName() {
-        this.countries = this.countries.sort(function (a, b) { return (a['name'] > b['name']) ? 1 : ((b['name'] > a['name']) ? -1 : 0); });
+        this.countries = this.countries.sort(function (a, b) {
+            return a['name'] > b['name'] ? 1 : b['name'] > a['name'] ? -1 : 0;
+        });
     }
 
     /**
-     * 
-     * @param fn 
+     *
+     * @param fn
      */
     registerOnTouched(fn: Function) {
         this.onTouch = fn;
     }
 
     /**
-     * 
-     * @param fn 
+     *
+     * @param fn
      */
     registerOnChange(fn: Function) {
         this.onModelChange = fn;
     }
 
     /**
-     * 
-     * @param value 
+     *
+     * @param value
      */
     writeValue(value: string) {
         this.value = value || '';
@@ -186,11 +231,11 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor, Valid
 
     /**
      * Validation
-     * @param c 
+     * @param c
      */
     validate(c: FormControl): ValidationErrors | null {
         let value = c.value;
-        let selectedDialCode = this.getSelectedCountryDialCode();
+        // let selectedDialCode = this.getSelectedCountryDialCode();
         let validationError: ValidationErrors = {
             phoneEmptyError: {
                 valid: false
@@ -209,7 +254,7 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor, Valid
             // validating number using the google's lib phone
             const phoneUtil = glibphone.PhoneNumberUtil.getInstance();
             try {
-                var phoneNumber = phoneUtil.parse(value);
+                let phoneNumber = phoneUtil.parse(value);
                 let isValidNumber = phoneUtil.isValidNumber(phoneNumber);
                 return isValidNumber ? null : validationError;
             } catch (ex) {
@@ -218,7 +263,6 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor, Valid
         }
         return null;
     }
-
 
     /**
      * Updates the value and trigger changes
@@ -229,53 +273,41 @@ export class PhoneNumberComponent implements OnInit, ControlValueAccessor, Valid
         this.onTouch();
     }
 
-
     /**
      * Updates the input
-     * @param countryCode 
+     * @param countryCode
      */
     private updatePhoneInput(countryCode: string) {
         this.showDropdown = false;
 
-        let newInputValue: string = PhoneNumberComponent.startsWithPlus(this.phoneNumber)
-            ? `${this.phoneNumber.split(PLUS)[1].substr(this.selectedCountry.dialCode.length, this.phoneNumber.length)}`
+        let newInputValue: string = PhoneNumberComponent.startsWithPlus(
+            this.phoneNumber
+        )
+            ? `${this.phoneNumber
+                .split(PLUS)[1]
+                .substr(
+                    this.selectedCountry.dialCode.length,
+                    this.phoneNumber.length
+                )}`
             : this.phoneNumber;
 
-        this.selectedCountry = this.countries.find((country: Country) => country.countryCode === countryCode);
-        if (this.selectedCountry)
-            this.phoneNumber = `${PLUS}${this.selectedCountry.dialCode} ${newInputValue.replace(/ /g, '')}`;
-        else
+        this.selectedCountry = this.countries.find(
+            (country: Country) => country.countryCode === countryCode
+        );
+        if (this.selectedCountry) {
+            this.phoneNumber = `${PLUS}${
+                this.selectedCountry.dialCode
+                } ${newInputValue.replace(/ /g, '')}`;
+        } else {
             this.phoneNumber = `${newInputValue.replace(/ /g, '')}`;
-    }
-
-
-    /**
-     * Util function to check if given text starts with plus sign
-     * @param text 
-     */
-    private static startsWithPlus(text: string): boolean {
-        return text.startsWith(PLUS);
+        }
     }
 
     /**
      * Returns the selected country's dialcode
      */
-    private getSelectedCountryDialCode(): string {
-        if (this.selectedCountry)
-            return PLUS + this.selectedCountry.dialCode;
+    public getSelectedCountryDialCode(): string {
+        if (this.selectedCountry) { return PLUS + this.selectedCountry.dialCode; };
         return null;
-    }
-
-    /**
-     * Reduced the prefixes
-     * @param foundPrefixes 
-     */
-    private static reducePrefixes(foundPrefixes: Country[]) {
-        return foundPrefixes.reduce(
-            (first: Country, second: Country) =>
-                first.dialCode.length > second.dialCode.length
-                    ? first
-                    : second
-        );
     }
 }

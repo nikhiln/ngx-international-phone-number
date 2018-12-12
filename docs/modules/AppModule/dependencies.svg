@@ -22,45 +22,61 @@
 <text text-anchor="start" x="429.7258" y="-15.4" font-family="sans-serif" font-size="14.00" fill="#000000"> &#160;Exports</text>
 <g id="clust1" class="cluster">
 <title>cluster_AppModule</title>
-<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="178,-70 178,-268 318,-268 318,-70 178,-70"/>
+<polygon fill="none" stroke="#000000" stroke-dasharray="1,5" points="61,-70 61,-268 435,-268 435,-70 61,-70"/>
 </g>
 <g id="clust2" class="cluster">
 <title>cluster_AppModule_declarations</title>
-<polygon fill="none" stroke="#000000" points="187,-78 187,-130 309,-130 309,-78 187,-78"/>
+<polygon fill="none" stroke="#000000" points="305,-78 305,-130 427,-130 427,-78 305,-78"/>
+</g>
+<g id="clust4" class="cluster">
+<title>cluster_AppModule_imports</title>
+<polygon fill="none" stroke="#000000" points="69,-78 69,-130 297,-130 297,-78 69,-78"/>
 </g>
 <g id="clust6" class="cluster">
 <title>cluster_AppModule_bootstrap</title>
-<polygon fill="none" stroke="#000000" points="186,-208 186,-260 310,-260 310,-208 186,-208"/>
+<polygon fill="none" stroke="#000000" points="212,-208 212,-260 336,-260 336,-208 212,-208"/>
 </g>
 <!-- AppComponent -->
 <g id="node1" class="node">
 <title>AppComponent</title>
-<polygon fill="#ffffb3" stroke="#000000" points="300.9399,-122 195.0601,-122 195.0601,-86 300.9399,-86 300.9399,-122"/>
-<text text-anchor="middle" x="248" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">AppComponent</text>
+<polygon fill="#ffffb3" stroke="#000000" points="418.9399,-122 313.0601,-122 313.0601,-86 418.9399,-86 418.9399,-122"/>
+<text text-anchor="middle" x="366" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">AppComponent</text>
 </g>
 <!-- AppModule -->
 <g id="node2" class="node">
 <title>AppModule</title>
-<polygon fill="#8dd3c7" stroke="#000000" points="289.6571,-187 286.6571,-191 265.6571,-191 262.6571,-187 206.3429,-187 206.3429,-151 289.6571,-151 289.6571,-187"/>
-<text text-anchor="middle" x="248" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">AppModule</text>
+<polygon fill="#8dd3c7" stroke="#000000" points="315.6571,-187 312.6571,-191 291.6571,-191 288.6571,-187 232.3429,-187 232.3429,-151 315.6571,-151 315.6571,-187"/>
+<text text-anchor="middle" x="274" y="-164.8" font-family="Times,serif" font-size="14.00" fill="#000000">AppModule</text>
 </g>
 <!-- AppComponent&#45;&gt;AppModule -->
 <g id="edge1" class="edge">
 <title>AppComponent&#45;&gt;AppModule</title>
-<path fill="none" stroke="#000000" d="M248,-122.1061C248,-122.1061 248,-140.991 248,-140.991"/>
-<polygon fill="#000000" stroke="#000000" points="244.5001,-140.9909 248,-150.991 251.5001,-140.991 244.5001,-140.9909"/>
+<path fill="none" stroke="#000000" d="M322.1489,-122.1061C322.1489,-141.3391 322.1489,-169 322.1489,-169 322.1489,-169 321.5194,-169 321.5194,-169"/>
+<polygon fill="#000000" stroke="#000000" points="325.8543,-165.5002 315.8542,-169 325.8542,-172.5002 325.8543,-165.5002"/>
 </g>
 <!-- AppComponent  -->
-<g id="node3" class="node">
+<g id="node4" class="node">
 <title>AppComponent </title>
-<polygon fill="#80b1d3" stroke="#000000" points="302.439,-252 193.561,-252 193.561,-216 302.439,-216 302.439,-252"/>
-<text text-anchor="middle" x="248" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">AppComponent </text>
+<polygon fill="#80b1d3" stroke="#000000" points="328.439,-252 219.561,-252 219.561,-216 328.439,-216 328.439,-252"/>
+<text text-anchor="middle" x="274" y="-229.8" font-family="Times,serif" font-size="14.00" fill="#000000">AppComponent </text>
 </g>
 <!-- AppModule&#45;&gt;AppComponent  -->
-<g id="edge2" class="edge">
+<g id="edge3" class="edge">
 <title>AppModule&#45;&gt;AppComponent </title>
-<path fill="none" stroke="#000000" stroke-dasharray="1,5" d="M248,-187.1061C248,-187.1061 248,-205.991 248,-205.991"/>
-<polygon fill="#000000" stroke="#000000" points="244.5001,-205.9909 248,-215.991 251.5001,-205.991 244.5001,-205.9909"/>
+<path fill="none" stroke="#000000" stroke-dasharray="1,5" d="M274,-187.1061C274,-187.1061 274,-205.991 274,-205.991"/>
+<polygon fill="#000000" stroke="#000000" points="270.5001,-205.9909 274,-215.991 277.5001,-205.991 270.5001,-205.9909"/>
+</g>
+<!-- InternationalPhoneNumberModule -->
+<g id="node3" class="node">
+<title>InternationalPhoneNumberModule</title>
+<polygon fill="#8dd3c7" stroke="#000000" points="288.9468,-122 285.9468,-126 264.9468,-126 261.9468,-122 77.0532,-122 77.0532,-86 288.9468,-86 288.9468,-122"/>
+<text text-anchor="middle" x="183" y="-99.8" font-family="Times,serif" font-size="14.00" fill="#000000">InternationalPhoneNumberModule</text>
+</g>
+<!-- InternationalPhoneNumberModule&#45;&gt;AppModule -->
+<g id="edge2" class="edge">
+<title>InternationalPhoneNumberModule&#45;&gt;AppModule</title>
+<path fill="none" stroke="#000000" d="M260.5726,-122.1061C260.5726,-122.1061 260.5726,-140.991 260.5726,-140.991"/>
+<polygon fill="#000000" stroke="#000000" points="257.0727,-140.9909 260.5726,-150.991 264.0727,-140.991 257.0727,-140.9909"/>
 </g>
 </g>
 </svg>
