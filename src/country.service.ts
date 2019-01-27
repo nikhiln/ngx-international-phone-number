@@ -1725,11 +1725,6 @@ export class CountryService {
       },
       {
         name: '',
-        dialCode: '61',
-        countryCode: 'au'
-      },
-      {
-        name: '',
         dialCode: '244',
         countryCode: 'ao'
       },
@@ -1757,11 +1752,6 @@ export class CountryService {
         name: '',
         dialCode: '297',
         countryCode: 'aw'
-      },
-      {
-        name: '',
-        dialCode: '994',
-        countryCode: 'az'
       },
       {
         name: '',
