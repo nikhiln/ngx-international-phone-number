@@ -49,7 +49,6 @@ const LOCALES = {
     td: 'CHAD',
     cl: 'CHILE',
     cn: 'CHINA',
-    cx: 'CHRISTMAS ISLAND',
     cc: 'COCOS ISLANDS',
     co: 'COLOMBIA',
     km: 'COMOROS',
@@ -302,7 +301,6 @@ const LOCALES = {
     td: 'CHAD',
     cl: 'CHILE',
     cn: 'CHINA',
-    cx: 'ISLAS CHRISTMAS',
     cc: 'ISLAS COCOS',
     co: 'COLOMBIA',
     km: 'COMOROS',
@@ -712,11 +710,6 @@ export class CountryService {
         name: '',
         dialCode: '86',
         countryCode: 'cn'
-      },
-      {
-        name: '',
-        dialCode: '61',
-        countryCode: 'cx'
       },
       {
         name: '',
