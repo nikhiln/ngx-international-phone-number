@@ -41,4 +41,14 @@ export class OnlyNumberDirective {
       }
     }
   }
+
+    @HostListener('paste', ['$event']) onPaste(event: ClipboardEvent) {
+        let e = <ClipboardEvent>event;
+        if (this.onlyNumber) {
+            if (isNaN(Number(event.clipboardData.getData('text')))) {
+                e.preventDefault();
+            }
+        }
+    }
+
 }
