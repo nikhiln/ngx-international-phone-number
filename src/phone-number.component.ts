@@ -283,13 +283,15 @@ export class PhoneNumberComponent
         let newInputValue: string = PhoneNumberComponent.startsWithPlus(
             this.phoneNumber
         )
-            ? `${this.phoneNumber
+            ? this.selectedCountry
+                ? `${this.phoneNumber
                 .split(PLUS)[1]
                 .substr(
                     this.selectedCountry.dialCode.length,
                     this.phoneNumber.length
                 )}`
-            : this.phoneNumber;
+                : ''
+                    : this.phoneNumber;
 
         this.selectedCountry = this.countries.find(
             (country: Country) => country.countryCode === countryCode
