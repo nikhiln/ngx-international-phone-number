@@ -19,10 +19,10 @@
   </span>
 
   <!-- if required -->
-  <input onlyNumber="true" class="form-control" [attr.maxlength]="maxlength" [(ngModel)]="phoneNumber" (ngModelChange)="updatePhoneNumber($event)" 
+  <input [onlyNumber]="onlyNumber" class="form-control" [attr.maxlength]="maxlength" [(ngModel)]="phoneNumber" (ngModelChange)="updatePhoneNumber($event)" 
   [placeholder]="placeholder" [type]="type" *ngIf="required" required #phoneNumberInput>
   
   <!-- if not required -->
-  <input onlyNumber="true" class="form-control" [attr.maxlength]="maxlength" [(ngModel)]="phoneNumber" (ngModelChange)="updatePhoneNumber($event)" 
+  <input [onlyNumber]="onlyNumber" class="form-control" [attr.maxlength]="maxlength" [(ngModel)]="phoneNumber" (ngModelChange)="updatePhoneNumber($event)" 
   [placeholder]="placeholder" [type]="type" *ngIf="!required" #phoneNumberInput>
 </div>
