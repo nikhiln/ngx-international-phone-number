@@ -56,6 +56,7 @@ Once it is imported, you can use `international-phone-number`:
        defaultCountryCode : An ISO 639-1 country code can be provided to set default country selected.
        placeholder: A placeholder text which would be displayed in input widget
        required: Indicates whether it's required or not
+       onlyNumber: Indicates whether the user can type only numbers or not in the input field. It defaults to true.
        allowDropdown: Indicates whether to allow selecting country from dropdown
        allowedCountries: A list of countries (iso codes) that would get display in country dropdown. E.g. [allowedCountries]="['in', 'ca', 'us']" would only show Canada, India and US. If not provided, all the countries would get displayed.
 

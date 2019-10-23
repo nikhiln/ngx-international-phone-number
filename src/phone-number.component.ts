@@ -54,7 +54,7 @@ export class PhoneNumberComponent
     @Input() required: boolean;
     @Input() allowDropdown = true;
     @Input() type = 'text';
-
+    @Input() onlyNumber = true;
     @Input() allowedCountries: Country[];
 
     @Output() onCountryCodeChanged: EventEmitter<any> = new EventEmitter();
