@@ -18,13 +18,15 @@ export class OnlyNumberDirective {
       if (
         [46, 8, 9, 27, 13, 110, 190].indexOf(e.keyCode) !== -1 ||
         // Allow: Ctrl+A
-        (e.keyCode === 65 && e.ctrlKey === true) ||
+        (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
         // Allow: Ctrl+C
-        (e.keyCode === 67 && e.ctrlKey === true) ||
+        (e.keyCode === 67 && (e.ctrlKey === true || e.metaKey === true)) ||
         // Allow: Ctrl+V
-        (e.keyCode === 86 && e.ctrlKey === true) ||
+        (e.keyCode === 86 && (e.ctrlKey === true || e.metaKey === true)) ||
         // Allow: Ctrl+X
-        (e.keyCode === 88 && e.ctrlKey === true) ||
+        (e.keyCode === 88 && (e.ctrlKey === true || e.metaKey === true)) ||
+        // Allow: Ctrl+Z
+        (e.keyCode === 90 && (e.ctrlKey === true || e.metaKey === true)) ||
         // Allow: home, end, left, right
         (e.keyCode >= 35 && e.keyCode <= 39) ||
         // Allow plus button
