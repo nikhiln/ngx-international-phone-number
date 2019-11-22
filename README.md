@@ -53,7 +53,7 @@ Once it is imported, you can use `international-phone-number`:
 ```
 
 ### Attributes/Options:
-       defaultCountryCode : An ISO 639-1 country code can be provided to set default country selected.
+       defaultCountryCode : An ISO 3166 country code can be provided to set default country selected.
        placeholder: A placeholder text which would be displayed in input widget
        required: Indicates whether it's required or not
        onlyNumber: Indicates whether the user can type only numbers or not in the input field. It defaults to true.
