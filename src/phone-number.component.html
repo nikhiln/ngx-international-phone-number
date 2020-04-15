@@ -4,7 +4,7 @@
             <button type="button" class="dropbtn btn" (click)="displayDropDown()">
               <span [class]="'flag flag-' + selectedCountry.countryCode" *ngIf="selectedCountry"></span>
               <span class="defaultCountry" *ngIf="!selectedCountry"></span>
-              <span class="arrow-down"></span>
+              <span *ngIf="allowDropdown" class="arrow-down"></span>
             </button>
             <div class="dropdown-content" *ngIf="showDropdown" clickOutside>
               <div class="list-group scrollable-menu">
